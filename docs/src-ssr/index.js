@@ -16,15 +16,21 @@ const
   compression = require('compression')
 
 const
-  ssr = require('quasar-ssr'),
+  fs = require('fs'),
+  https = require('https'),
+  privateKey = fs.readFileSync('../ssl.key', 'utf8'),
+  certificate = fs.readFileSync('../ssl.cert', 'utf8'),
+  credentials = {
+    key: privateKey,
+    cert: certificate
+  },
+  ssr = require('../ssr'),
   extension = require('./extension'),
   app = express(),
-  port = process.env.PORT || 3000
-
+  httpsServer = https.createServer(credentials, app)
 const serve = (path, cache) => express.static(ssr.resolveWWW(path), {
   maxAge: cache ? 1000 * 60 * 60 * 24 * 30 : 0
 })
-
 // gzip
 app.use(compression({ threshold: 0 }))
 
@@ -37,48 +43,41 @@ if (ssr.settings.pwa) {
 app.use('/', serve('.', true))
 
 // we extend the custom common dev & prod parts here
-extension.extendApp({ app })
-
-const redirects = [
-  { from: '/quasar-cli/supporting-ie', to: '/quasar-cli/browser-compatibility' },
-  { from: '/quasar-cli/modern-build', to: '/quasar-cli/browser-compatibility' },
-  { from: '/layout/floating-action-button', to: '/vue-components/floating-action-button' },
-  { from: '/quasar-cli/app-icons', to: '/icongenie/introduction' },
-  { from: '/quasar-cli/cli-documentation/supporting-ie', to: '/quasar-cli/supporting-ie' },
-  { from: '/quasar-cli/cli-documentation/supporting-ts', to: '/quasar-cli/supporting-ts' },
-  { from: '/quasar-cli/cli-documentation/directory-structure', to: '/quasar-cli/directory-structure' },
-  { from: '/quasar-cli/cli-documentation/commands-list', to: '/quasar-cli/commands-list' },
-  { from: '/quasar-cli/cli-documentation/css-preprocessors', to: '/quasar-cli/css-preprocessors' },
-  { from: '/quasar-cli/cli-documentation/routing', to: '/quasar-cli/routing' },
-  { from: '/quasar-cli/cli-documentation/lazy-loading', to: '/quasar-cli/lazy-loading' },
-  { from: '/quasar-cli/cli-documentation/handling-assets', to: '/quasar-cli/handling-assets' },
-  { from: '/quasar-cli/cli-documentation/boot-files', to: '/quasar-cli/boot-files' },
-  { from: '/quasar-cli/cli-documentation/prefetch-feature', to: '/quasar-cli/prefetch-feature' },
-  { from: '/quasar-cli/cli-documentation/api-proxying', to: '/quasar-cli/api-proxying' },
-  { from: '/quasar-cli/cli-documentation/boot-files', to: '/quasar-cli/boot-files' },
-  { from: '/quasar-cli/cli-documentation/handling-webpack', to: '/quasar-cli/handling-webpack' },
-  { from: '/quasar-cli/cli-documentation/handling-process-env', to: '/quasar-cli/handling-process-env' },
-  { from: '/quasar-cli/cli-documentation/vuex-store', to: '/quasar-cli/vuex-store' },
-  { from: '/quasar-cli/cli-documentation/linter', to: '/quasar-cli/linter' }
-]
-
-redirects.forEach(entry => {
-  app.get(entry.from, (_, res) => {
-    res.redirect(entry.to)
-  })
-})
+extension.extendApp({ app, ssr })
 
 // this should be last get(), rendering with SSR
 app.get('*', (req, res) => {
   res.setHeader('Content-Type', 'text/html')
+
+  // SECURITY HEADERS
+  // read more about headers here: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers
+  // the following headers help protect your site from common XSS attacks in browsers that respect headers
+  // you will probably want to use .env variables to drop in appropriate URLs below,
+  // and potentially look here for inspiration:
+  // https://ponyfoo.com/articles/content-security-policy-in-express-apps
+
   // https://developer.mozilla.org/en-us/docs/Web/HTTP/Headers/X-Frame-Options
-  res.setHeader('X-frame-options', 'SAMEORIGIN')
+  // res.setHeader('X-frame-options', 'SAMEORIGIN') // one of DENY | SAMEORIGIN | ALLOW-FROM https://example.com
 
   // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection
-  res.setHeader('X-XSS-Protection', 1)
+  // res.setHeader('X-XSS-Protection', 1)
 
   // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options
-  res.setHeader('X-Content-Type-Options', 'nosniff')
+  // res.setHeader('X-Content-Type-Options', 'nosniff')
+
+  // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin
+  // res.setHeader('Access-Control-Allow-Origin', '*') // one of '*', '<origin>' where origin is one SINGLE origin
+
+  // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-DNS-Prefetch-Control
+  // res.setHeader('X-DNS-Prefetch-Control', 'off') // may be slower, but stops some leaks
+
+  // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy
+  // res.setHeader('Content-Security-Policy', 'default-src https:')
+
+  // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/sandbox
+  // res.setHeader('Content-Security-Policy', 'sandbox') // this will lockdown your server!!!
+  // here are a few that you might like to consider adding to your CSP
+  // object-src, media-src, script-src, frame-src, unsafe-inline
 
   ssr.renderToString({ req, res }, (err, html) => {
     if (err) {
@@ -86,13 +85,11 @@ app.get('*', (req, res) => {
         res.redirect(err.url)
       }
       else if (err.code === 404) {
-        // Should reach here only if no "catch-all" route
-        // is defined in /src/routes
         res.status(404).send('404 | Page Not Found')
       }
       else {
         // Render Error Page or Redirect
-        res.status(500).send('500 | Internal Server Error')
+        res.status(500).send(`500 on ${err.stack}`)
         if (ssr.settings.debug) {
           console.error(`500 on ${req.url}`)
           console.error(err)
@@ -106,6 +103,4 @@ app.get('*', (req, res) => {
   })
 })
 
-app.listen(port, () => {
-  console.log(`Server listening at port ${port}`)
-})
+httpsServer.listen(3330)
