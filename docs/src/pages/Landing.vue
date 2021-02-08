@@ -7,13 +7,11 @@
       .relative-position.text-center
         .text-h1
           div
-            span.text-bold Quasar
-            span.text-subtitle1 v{{ $q.version }}
+            span.text-bold فریم ورک
           .landing__hero-row.row.no-wrap.items-baseline.justify-center
-            span Framew
+            span کویزار
             img.landing__logo(src="https://cdn.quasar.dev/logo/svg/quasar-logo.svg")
-            span rk
-        .text-subtitle1 Build high-performance <strong>VueJS</strong> user interfaces in record time
+        .text-subtitle1 رابط‌های کاربری <strong>ویو جی اس</strong> با کارایی بالا رو در کسری از زمان بساز
         //- .q-pt-sm.q-px-sm
         //-   survey-countdown.landing-countdown.bg-primary.text-white.rounded-borders(
         //-     color="white"
@@ -42,7 +40,7 @@
   section.padding.bg-white.text-grey-10.text-center
     .landing__features.row.items-start.q-col-gutter-xl
       .col-12.text-center
-        h4 All Platforms in One Go
+        h4 تمامی پلتفرم‌ها با یک بار کدنویسی
       .col-12.text-center
         .landing__feature-item.q-gutter-lg
           q-icon(:name="fabApple")

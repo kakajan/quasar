@@ -22,6 +22,7 @@ module.exports = function (ctx) {
     // preFetch: true,
 
     build: {
+      rtl: true,
       vueRouterMode: 'history',
       showProgress: ctx.dev,
       distDir: 'dist/quasar.dev',
@@ -74,6 +75,7 @@ module.exports = function (ctx) {
     },
 
     framework: {
+      lang: 'fa-ir',
       importStrategy: 'all',
       iconSet: 'svg-mdi-v5',
 
@@ -104,9 +106,9 @@ module.exports = function (ctx) {
         ]
       },
       manifest: {
-        name: 'Quasar Documentation',
+        name: 'مستندات کویزار',
         short_name: 'Quasar Docs',
-        description: 'Quasar Framework Documentation',
+        description: 'مستندات فریم ورک کویزار',
         display: 'standalone',
         orientation: 'any',
         background_color: '#ffffff',

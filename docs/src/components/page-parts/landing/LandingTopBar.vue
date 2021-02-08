@@ -4,7 +4,7 @@ section.fixed-top.landing-top-bar.text-white
     q-btn.quasar-logo.text-bold(flat, no-caps, no-wrap, to="/start")
       q-avatar.landing-top-bar__avatar
         img(src="https://cdn.quasar.dev/logo/svg/quasar-logo.svg")
-      q-toolbar-title Docs
+      q-toolbar-title مستندات
 
     q-space
 
