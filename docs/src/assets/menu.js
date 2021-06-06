@@ -1201,74 +1201,74 @@ const utils = [
 
 module.exports = [
   {
-    name: 'Why Quasar?',
+    name: 'چرا کویزار؟',
     icon: 'room',
     path: 'introduction-to-quasar'
   },
   {
-    name: 'Sponsors and Backers',
+    name: 'اسپانسرها و پشتیبانان',
     icon: 'favorite',
     path: 'sponsors-and-backers'
   },
   {
-    name: 'Why Donations Are Important',
+    name: 'چرا حمایت مالی مهمه؟',
     icon: 'assignment_late',
     path: 'why-donate'
   },
   {
-    name: 'API Explorer',
+    name: 'کاوشگر ای پی آی',
     icon: 'travel_explore',
     badge: 'new',
     path: 'api-explorer'
   },
   {
-    name: 'Video Tutorials',
+    name: 'ویدیوهای آموزشی',
     icon: 'ondemand_video',
     path: 'video-tutorials'
   },
   {
-    name: 'Meet the Team',
+    name: 'آشنایی با تیم',
     icon: 'people',
     path: 'meet-the-team'
   },
   {
-    name: 'Getting Started',
+    name: 'شروع کنید',
     icon: 'flight_takeoff',
     path: 'start',
     children: gettingStarted
   },
   {
-    name: 'Contribution Guide',
+    name: 'راهنمای مشارکت',
     icon: 'code',
     path: 'contribution-guide',
     children: contributionGuide
   },
   {
-    name: 'Quasar Options & Helpers',
+    name: 'گزینه‌ها و راهنماهای کویزار',
     icon: 'tune',
     path: 'options',
     children: options
   },
   {
-    name: 'Security',
+    name: 'امنیت',
     icon: 'security',
     path: 'security',
     children: security
   },
   {
-    name: 'Quasar CLI',
+    name: 'CLI کویزار',
     icon: 'build',
     path: 'quasar-cli',
     children: cli
   },
   {
-    name: 'Icon Genie CLI',
+    name: 'CLI آیکون جینی',
     icon: 'stars',
     path: 'icongenie',
     children: icongenie
   },
   {
-    name: 'Style & Identity',
+    name: 'استایل و هویت',
     icon: 'style',
     path: 'style',
     children: style

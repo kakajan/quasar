@@ -2,7 +2,7 @@
 q-splitter.release__splitter(:value="20" :limits="[14, 90]")
   template(#before)
     q-scroll-area
-      q-input(v-model="search" dense square standout color="white" placeholder="Search..." input-class="text-center" clearable)
+      q-input(v-model="search" dense square standout color="white" placeholder="جستجو..." input-class="text-center" clearable)
         template(#append)
           q-icon(:name="mdiMagnify")
       q-tabs.text-grey-7(vertical v-model="selectedVersion"  active-color="brand-primary" active-bg-color="blue-1" indicator-color="brand-primary")

@@ -8,7 +8,7 @@ q-layout.doc-layout(view="lHh LpR lff", @scroll="onScroll")
         q-avatar
           img.quasar-logo__img(src="https://cdn.quasar.dev/logo-v2/svg/logo.svg")
         q-toolbar-title.text-weight-bold(shrink)
-          img.quasar-logo__logotype(src="https://cdn.quasar.dev/logo-v2/svg/logotype.svg")
+          img.quasar-logo__logotype(src="/logotype.svg")
 
       q-space
 
@@ -53,7 +53,7 @@ q-layout.doc-layout(view="lHh LpR lff", @scroll="onScroll")
             color="teal"
             outline
             :icon="mdiHeart"
-            label="Donate to Quasar"
+            label="حمایت مالی"
             padding="12px lg"
             no-wrap
           )
@@ -66,7 +66,7 @@ q-layout.doc-layout(view="lHh LpR lff", @scroll="onScroll")
             color="brand-primary"
             outline
             :icon="mdiFileDocumentEditOutline"
-            label="Survey results are out!"
+            label="نتایج نظرسنجی"
             no-caps
             padding="12px lg"
             no-wrap
@@ -91,7 +91,7 @@ q-layout.doc-layout(view="lHh LpR lff", @scroll="onScroll")
           @keydown="onSearchKeydown"
           @focus="onSearchFocus"
           @blur="onSearchBlur"
-          placeholder="Search..."
+          placeholder="جستجو..."
         )
           template(v-slot:prepend)
             q-icon(name="search")

@@ -7,7 +7,7 @@
       :color="color"
       :text-color="textColor"
       :icon="mdiFileDocumentEditOutline"
-      label="Survey results are out!"
+      label="نتایج نظرسنجی"
       no-caps
     )
 </template>

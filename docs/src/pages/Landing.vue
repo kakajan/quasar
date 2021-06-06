@@ -4,7 +4,7 @@ q-page.landing
   section.landing__hero.flex.flex-center
     .row.items-center.justify-center.landing__hero-inner
       .landing__hero-logo.col-12.flex.flex-center.q-mb-lg
-        img.landing__logo-image(src="https://cdn.quasar.dev/logo-v2/svg/logo-vertical.svg")
+        img.landing__logo-image(src="/quasar-logo-vertical.svg")
       .landing__hero-text.col-12.column.items-center
         //- .text-h4.landing__hero-text-main.text-bold.text-brand-primary.q-pb-xs QUASAR FRAMEWORK
         .q-pb-lg.text-grey-6.landing__hero-quote.text-center
