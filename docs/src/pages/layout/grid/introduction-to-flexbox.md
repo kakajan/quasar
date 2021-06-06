@@ -218,7 +218,7 @@ Like previously mentioned, rows wrap content by default, so when 12 (or more) gr
 </div>
 ```
 
-Also check [Visibility](/style/visibility#Window-Width-Related) Style page to see thresholds on window width and these tokens (xs, sm, md, lg, xl) used on their own to hide or show DOM elements.
+Also check [Visibility](/style/visibility#window-width-related) Style page to see thresholds on window width and these tokens (xs, sm, md, lg, xl) used on their own to hide or show DOM elements.
 
 ## Flex Addons
 
@@ -255,4 +255,4 @@ Examples: `row-md`, `items-lg-end`, `q-pa-xs q-pa-sm-sm q-px-md-lg q-py-md-md`
 ## Flex Playground
 To see the Flex in action, you can use the Flex Playground to interactively learn more.
 
-<q-btn push color="primary" icon-right="launch" label="Flex Playground" to="/layout/grid/flex-playground" />
+<q-btn push color="brand-primary" icon-right="launch" label="Flex Playground" to="/layout/grid/flex-playground" />

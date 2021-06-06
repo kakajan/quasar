@@ -4,7 +4,7 @@ desc: A set of miscellaneous Quasar methods for debouncing or throttling functio
 ---
 
 ::: tip
-For usage with the UMD build see [here](/start/umd#Quasar-Global-Object).
+For usage with the UMD build see [here](/start/umd#quasar-global-object).
 :::
 
 ## Open External URL
@@ -54,7 +54,7 @@ openURL(
 If you want to open the telephone dialer in a Cordova app, don't use `openURL()`. Instead you should directly use `<a href="tel:123456789">` tags or `<QBtn type="a" href="tel:123456789">`
 :::
 
-## Copy to Clipboard <q-badge align="top" label="v1.5+" />
+## Copy to Clipboard <q-badge align="top" color="brand-primary" label="v1.5+" />
 
 The following is a helper to copy some text to Clipboard. The method returns a Promise.
 
@@ -70,7 +70,7 @@ copyToClipboard('some text')
   })
 ```
 
-## Export file <q-badge align="top" label="v1.5+" />
+## Export file <q-badge align="top" color="brand-primary" label="v1.5+" />
 
 The following is a helper to trigger a file download.
 

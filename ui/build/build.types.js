@@ -365,10 +365,10 @@ function writeIndexDTS (apis) {
   for (const key in injections) {
     const injectionDefs = injections[key]
     if (injectionDefs) {
-      const injectionName = `${key.toUpperCase().replace('$', '')}VueGlobals`
-      writeLine(contents, `import { ${injectionName} } from "./globals";`)
+      const injectionName = `${ key.toUpperCase().replace('$', '') }VueGlobals`
+      writeLine(contents, `import { ${ injectionName }, QSingletonGlobals } from "./globals";`)
       writeLine(contents, `declare module "./globals" {`)
-      writeLine(contents, `export interface ${injectionName} {`)
+      writeLine(contents, `export interface ${ injectionName } {`)
       for (const defKey in injectionDefs) {
         writeLines(contents, injectionDefs[defKey], 1)
       }
@@ -395,7 +395,7 @@ function writeIndexDTS (apis) {
 
   quasarTypeContents.forEach(line => write(contents, line))
 
-  writeLine(contents, `export const Quasar: PluginObject<Partial<QuasarPluginOptions>>`)
+  writeLine(contents, `export const Quasar: PluginObject<Partial<QuasarPluginOptions>> & QSingletonGlobals`)
   writeLine(contents, `export default Quasar`)
   writeLine(contents)
 
@@ -404,6 +404,7 @@ function writeIndexDTS (apis) {
   //  and not directly referenced by any file
   writeLine(contents, `import './vue'`)
   writeLine(contents, `import './shim-icon-set'`)
+  writeLine(contents, `import './shim-lang'`)
 
   writeFile(resolvePath('index.d.ts'), contents.join(''))
 }

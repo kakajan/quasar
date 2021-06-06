@@ -36,13 +36,23 @@ export function copyHeading (id) {
   this.$q.notify({
     message: 'Anchor has been copied to clipboard.',
     color: 'white',
-    textColor: 'primary',
+    textColor: 'brand-primary',
     position: 'top',
-    actions: [ { icon: 'close', color: 'primary', dense: true, round: true } ],
+    actions: [ { icon: 'close', color: 'brand-primary', dense: true, round: true } ],
     timeout: 2000
   })
 }
 
+// eslint-disable-next-line
+const specialRE = /[\s·/_\\,:;\.\(\)\[\]]+/g
+const andRE = /&/g
+const nonWordRE = /[^\w-]+/g
+const multipleDashRE = /--+/g
+
 export function slugify (str) {
-  return encodeURIComponent(String(str).trim().replace(/\s+/g, '-'))
+  return String(str).toLowerCase()
+    .replace(specialRE, '-')
+    .replace(andRE, '-and-')
+    .replace(nonWordRE, '')
+    .replace(multipleDashRE, '-')
 }

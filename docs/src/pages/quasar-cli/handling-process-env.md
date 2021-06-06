@@ -77,7 +77,7 @@ if (process.env.MODE === 'electron') {
 }
 ```
 
-## Adding to process.env <q-badge align="top" label="@quasar/app v2 specs" />
+## Adding to process.env <q-badge align="top" color="brand-primary" label="@quasar/app v2 specs" />
 
 You can add your own definitions to `process.env` through `/quasar.conf.js` file:
 
@@ -111,4 +111,4 @@ build: {
 }
 ```
 
-Alternatively you can use our [@quasar/dotenv](https://github.com/quasarframework/app-extension-dotenv) or [@quasar/qenv](https://github.com/quasarframework/app-extension-qenv) App Extensions.
+

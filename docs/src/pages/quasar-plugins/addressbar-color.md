@@ -11,12 +11,15 @@ Newer mobile browsers have the ability to specify a color for the addressbar, li
 
 ![Mobile Addressbar Coloring](https://cdn.quasar.dev/img/mobile-address-bar-colors.jpg "Mobile Addressbar Coloring")
 
+## AddressbarColor API
+<doc-api file="AddressbarColor" />
+
 ## Installation
 <doc-installation plugins="AddressbarColor" />
 
 ## Usage
 
-We create boot file to initialize its usage: `$ quasar new boot addressbar-color`. A file is created (`/src/boot/addressbar-color.js`). We edit it:
+We create boot file to initialize its usage: `$ quasar new boot addressbar-color [--format ts]`. A file is created (`/src/boot/addressbar-color.js`). We edit it:
 
 ```js
 // file: /src/boot/addressbar-color.js
@@ -54,6 +57,3 @@ export default {
 ::: tip
 Calling `set()` with no parameters will use the primary color.
 :::
-
-## AddressbarColor API
-<doc-api file="AddressbarColor" />

@@ -9,6 +9,7 @@ import CompositionMixin from '../../mixins/composition.js'
 import ListenersMixin from '../../mixins/listeners.js'
 
 import { stop } from '../../utils/event.js'
+import { addFocusFn } from '../../utils/focus-manager.js'
 
 export default Vue.extend({
   name: 'QInput',
@@ -159,19 +160,25 @@ export default Vue.extend({
 
   methods: {
     focus () {
-      const el = document.activeElement
-      if (
-        this.$refs.input !== void 0 &&
-        this.$refs.input !== el &&
-        // IE can have null document.activeElement
-        (el === null || el.id !== this.targetUid)
-      ) {
-        this.$refs.input.focus()
-      }
+      addFocusFn(() => {
+        const el = document.activeElement
+        if (
+          this.$refs.input !== void 0 &&
+          this.$refs.input !== el &&
+          // IE can have null document.activeElement
+          (el === null || el.id !== this.targetUid)
+        ) {
+          this.$refs.input.focus()
+        }
+      })
     },
 
     select () {
       this.$refs.input !== void 0 && this.$refs.input.select()
+    },
+
+    getNativeElement () {
+      return this.$refs.input
     },
 
     __onPaste (e) {
@@ -184,7 +191,7 @@ export default Vue.extend({
     },
 
     __onInput (e) {
-      if (e && e.target && e.target.composing === true) {
+      if (!e || !e.target || e.target.composing === true) {
         return
       }
 
@@ -200,6 +207,18 @@ export default Vue.extend({
       }
       else {
         this.__emitValue(val)
+
+        if (['text', 'search', 'url', 'tel', 'password'].includes(this.type) && e.target === document.activeElement) {
+          const { selectionStart, selectionEnd } = e.target
+
+          if (selectionStart !== void 0 && selectionEnd !== void 0) {
+            this.$nextTick(() => {
+              if (e.target === document.activeElement && val.indexOf(e.target.value) === 0) {
+                e.target.setSelectionRange(selectionStart, selectionEnd)
+              }
+            })
+          }
+        }
       }
 
       // we need to trigger it immediately too,

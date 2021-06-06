@@ -67,7 +67,7 @@ Include the language pack JS tag for your Quasar version and also tell Quasar to
 Check what tags you need to include in your HTML files on [UMD / Standalone](/start/umd) page.
 
 ### Dynamical (non-SSR)
-Quasar CLI: If your desired Quasar Language Pack must be dynamically selected (example: depends on a cookie), then you need to create a boot file: `$ quasar new boot quasar-lang-pack`. This will create `/src/boot/quasar-lang-pack.js` file. Edit it to:
+Quasar CLI: If your desired Quasar Language Pack must be dynamically selected (example: depends on a cookie), then you need to create a boot file: `$ quasar new boot quasar-lang-pack [--format ts]`. This will create `/src/boot/quasar-lang-pack.js` file. Edit it to:
 
 ```js
 // for when you don't specify quasar.conf.js > framework: 'all'
@@ -106,7 +106,7 @@ boot: [
 Notice the use of the [Webpack magic comment](https://webpack.js.org/api/module-methods/#magic-comments) - `webpackInclude`. Otherwise all the available language packs will be bundled, resulting in an increase in the compilation time and the bundle size. See [Caveat for dynamic imports](https://quasar.dev/quasar-cli/lazy-loading#Caveat-for-dynamic-imports)
 :::
 
-### Dynamical (SSR) <q-badge align="top" label="v1.11+" />
+### Dynamical (SSR) <q-badge align="top" color="brand-primary" label="v1.11+" />
 When dealing with SSR, we can't use singleton objects because that would pollute sessions. As a result, as opposed to the dynamical example above (read it first!), you must also specify the `ssrContext` from your boot file:
 
 ```js

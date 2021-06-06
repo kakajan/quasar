@@ -13,8 +13,8 @@ So what can you configure through `/quasar.conf.js`?
 * [CSS animations](/options/animations) that you wish to use
 * [Boot Files](/quasar-cli/boot-files) list (that determines order of execution too) -- which are files in `/src/boot` that tell how your app is initialized before mounting the root Vue component
 * Global CSS/Stylus/... files to be included in the bundle
-* PWA [manifest](/quasar-cli/developing-pwa/configuring-pwa#Configuring-Manifest-File) and [Workbox options](/quasar-cli/developing-pwa/configuring-pwa#Quasar.conf.js)
-* [Electron Packager](/quasar-cli/developing-electron-apps/configuring-electron#Quasar.conf.js) and/or [Electron Builder](/quasar-cli/developing-electron-apps/configuring-electron#Quasar.conf.js)
+* PWA [manifest](/quasar-cli/developing-pwa/configuring-pwa#configuring-manifest-file) and [Workbox options](/quasar-cli/developing-pwa/configuring-pwa#quasar-conf-js)
+* [Electron Packager](/quasar-cli/developing-electron-apps/configuring-electron#quasar-conf-js) and/or [Electron Builder](/quasar-cli/developing-electron-apps/configuring-electron#quasar-conf-js)
 * IE11+ support
 * Extend Webpack config
 
@@ -176,7 +176,7 @@ return {
 }
 ```
 
-### Property: framework <q-badge align="top" label="@quasar/app v2 specs" />
+### Property: framework <q-badge align="top" color="brand-primary" label="@quasar/app v2 specs" />
 Tells the CLI what Quasar components/directives/plugins to import, what Quasar I18n language pack to use, what icon set to use for Quasar components and more.
 
 Filling "components" and "directives" is required only if "all" is set to `false`.
@@ -217,7 +217,7 @@ return {
 }
 ```
 
-More on cssAddon [here](/layout/grid/introduction-to-flexbox#Flex-Addons).
+More on cssAddon [here](/layout/grid/introduction-to-flexbox#flex-addons).
 
 ### Property: devServer
 **Webpack devServer options**. Take a look at the [full list](https://webpack.js.org/configuration/dev-server/) of options. Some are overwritten by Quasar CLI based on "quasar dev" parameters and Quasar mode in order to ensure that everything is setup correctly. Note: if you're proxying the development server (i.e. using a cloud IDE), set the `public` setting to your public application URL.
@@ -278,7 +278,7 @@ devServer: {
 }
 ```
 
-### Property: build <q-badge align="top" label="@quasar/app v2 specs" />
+### Property: build <q-badge align="top" color="brand-primary" label="@quasar/app v2 specs" />
 | Property | Type | Description |
 | --- | --- | --- |
 | transpile | Boolean | Enables or disables Babel transpiling. |
@@ -323,7 +323,7 @@ The following properties of `build` are automatically configured by Quasar CLI d
 
 If, for example, you run "quasar build --debug", sourceMap and extractCSS will be set to "true" regardless of what you configure.
 
-### Property: htmlVariables <q-badge align="top" label="@quasar/app v2 specs" />
+### Property: htmlVariables <q-badge align="top" color="brand-primary" label="@quasar/app v2 specs" />
 
 You can define and then reference variables in `src/index.template.html`, like this:
 ```js
@@ -361,13 +361,28 @@ sourceFiles: {
 }
 ```
 
-### Example setting env for dev/build <q-badge align="top" label="@quasar/app v2 specs" />
+### Example setting env for dev/build <q-badge align="top" color="brand-primary" label="@quasar/app v2 specs" />
+
+There's two concepts that need to be understood here. The env variables from the terminal that are available in `/quasar.conf.js` file itself and the environment variables that you pass to your UI code.
+
 ```js
-build: {
-  env: {
-    API: ctx.dev
-      ? 'https://dev.api.com'
-      : 'https://prod.api.com'
+// quasar.conf.js
+
+// Accessing terminal variables
+console.log(process.env)
+
+module.exports = function (ctx) {
+  return {
+    // ...
+
+    build: {
+      // passing down to UI code from quasar.conf.js
+      env: {
+        API: ctx.dev
+          ? 'https://dev.api.com'
+          : 'https://prod.api.com'
+      }
+    }
   }
 }
 ```
@@ -390,11 +405,24 @@ build: {
 }
 ```
 
-> Alternatively you can use our [@quasar/dotenv](https://github.com/quasarframework/app-extension-dotenv) or [@quasar/qenv](https://github.com/quasarframework/app-extension-qenv) App Extensions.
-
 ::: tip
 Also check out [Handling process.env](/quasar-cli/handling-process-env) page.
 :::
+
+#### Using dotenv
+
+Should you wish to use `.env` file(s), you can even use [dotenv](https://www.npmjs.com/package/dotenv) package. The following is just an example that passes env variables from the terminal right down to your UI's app code:
+
+```bash
+$ yarn add --dev dotenv
+```
+
+Then in your `/quasar.conf.js`:
+```
+build: {
+  env: require('dotenv').config().parsed
+}
+```
 
 ### Handling Webpack configuration
 In depth analysis on [Handling Webpack](/quasar-cli/handling-webpack) documentation page.
