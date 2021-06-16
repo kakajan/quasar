@@ -125,7 +125,7 @@ module.exports = function (ctx) {
 
     ssr: {
       pwa: ctx.prod,
-      prodPort: 3010,
+      prodPort: 3330,
       middlewares: [
         ctx.prod ? 'compression' : '',
         'render'

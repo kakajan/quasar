@@ -1,6 +1,6 @@
 {
   "name": "quasar.dev",
-  "version": "1.0.0",
+  "version": "2.0.1",
   "description": "Official Quasar Docs Website",
   "productName": "quasar-docs",
   "author": "Razvan Stoenescu <razvan.stoenescu@gmail.com>",
@@ -14,21 +14,21 @@
     "test": "echo \"No test specified\" && exit 0"
   },
   "dependencies": {
-    "@quasar/extras": "^1.0.0",
+    "@quasar/extras": "^1.10.7",
     "core-js": "^3.6.5",
     "prismjs": "^1.15.0",
-    "quasar": "^2.0.0-beta.1"
+    "quasar": "^2.0.0-rc.2"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.0.0",
-    "@quasar/app": "^3.0.0-beta.1",
+    "@babel/eslint-parser": "^7.14.5",
+    "@quasar/app": "^3.0.0-rc.2",
     "eslint": "^7.14.0",
     "eslint-config-standard": "^16.0.2",
     "eslint-plugin-import": "^2.19.1",
     "eslint-plugin-node": "^11.0.0",
     "eslint-plugin-promise": "^5.1.0",
     "eslint-plugin-quasar": "^1.0.0",
-    "eslint-plugin-vue": "^7.0.0",
+    "eslint-plugin-vue": "^7.11.1",
     "eslint-webpack-plugin": "^2.4.0",
     "gray-matter": "^4.0.2",
     "markdown-ast": "^0.2.1",
